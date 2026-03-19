@@ -32,14 +32,11 @@ authenticator.login(location='main')
 
 # 3. Seiten-Routing basierend auf Status
 if st.session_state["authentication_status"]:
-    # Eingeloggt: Entweder Rätsel oder Dashboard
     if 'current_event' in st.session_state:
         show_riddle()
     else:
         show_dashboard(authenticator)
-
 elif st.session_state["authentication_status"] is False:
-    st.error('Name oder PIN ist falsch')
-
+    st.error('Der Zugang wurde verwehrt. Codename oder Schlüssel ist falsch.')
 elif st.session_state["authentication_status"] is None:
-    st.info('Bitte gib deinen Namen und deine PIN ein')
+    st.info('Identifiziere dich, Bruder.')

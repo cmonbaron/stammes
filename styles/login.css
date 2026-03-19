@@ -1,68 +1,113 @@
 /* styles/login.css */
-.stApp {
-    background-color: #f1f5f9;
+
+/* 1. Hintergrund und Zentrierung */
+.stApp { 
+    background-color: #f8fafc !important; 
 }
 
-.main .block-container {
-    padding-top: 5rem;
-    max-width: 450px;
+.main .block-container { 
+    padding-top: 5rem !important; 
+    max-width: 450px !important; 
 }
 
+/* 2. Die Login-Box */
 div[data-testid="stForm"], form {
-    border: 1px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 2.5rem;
+    border: 2px solid #cbd5e1 !important;
+    border-radius: 16px !important;
+    padding: 2.5rem !important;
     background-color: #ffffff !important;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
 }
 
-h1, h2, label, p, span {
-    color: #0f172a !important;
-    font-family: 'Inter', sans-serif !important;
+/* 3. Titel "Heilige Bruderschaft" */
+h1 { 
+    color: #1e293b !important; 
+    font-weight: 900 !important; 
+    text-align: center !important; 
 }
 
-h2 { font-weight: 800 !important; text-align: center; margin-bottom: 2rem !important; }
+/* 4. "Login" -> "Zugang" */
+div[data-testid="stForm"] h2 {
+    font-size: 0 !important; /* Verstecke Originaltext */
+    margin-bottom: 2rem !important;
+    text-align: center !important;
+}
+div[data-testid="stForm"] h2::before {
+    content: "ZUGANG" !important;
+    font-size: 28px !important;
+    color: #4f46e5 !important; /* Indigo Blau */
+    visibility: visible !important;
+    font-weight: 900 !important;
+    letter-spacing: 1px !important;
+}
 
+/* 5. Labels: "Username" -> "Codename", "Password" -> "Schlüssel" */
+label[data-testid="stWidgetLabel"] {
+    font-size: 0 !important;
+    margin-bottom: 8px !important;
+    display: block !important;
+}
+
+/* Codename */
+div[data-testid="stTextInput"]:nth-of-type(1) label[data-testid="stWidgetLabel"]::before {
+    content: "Codename" !important;
+    font-size: 16px !important;
+    color: #000000 !important; /* Tiefschwarz */
+    visibility: visible !important;
+    font-weight: 800 !important;
+}
+/* Schlüssel */
+div[data-testid="stTextInput"]:nth-of-type(2) label[data-testid="stWidgetLabel"]::before {
+    content: "Schlüssel" !important;
+    font-size: 16px !important;
+    color: #000000 !important; /* Tiefschwarz */
+    visibility: visible !important;
+    font-weight: 800 !important;
+}
+
+/* 6. Input Felder */
 input {
-    background-color: #f8fafc !important;
-    color: #1e293b !important;
-    border: 1px solid #cbd5e1 !important;
-    border-radius: 8px !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    border: 2px solid #cbd5e1 !important;
+    font-size: 16px !important;
+    height: 45px !important;
 }
 
+/* 7. Button "BETRETEN" */
 div.stButton > button {
     width: 100% !important;
     background-color: #4f46e5 !important;
-    color: #ffffff !important;
-    border-radius: 8px !important;
+    height: 50px !important;
     border: none !important;
-    padding: 0.75rem 1rem !important;
-    font-weight: 700 !important;
-    margin-top: 1rem !important;
+    margin-top: 1.5rem !important;
+    font-size: 0 !important;
 }
-
-div.stButton > button p {
+div.stButton > button::before {
+    content: "BETRETEN" !important;
+    font-size: 18px !important;
     color: #ffffff !important;
+    visibility: visible !important;
+    font-weight: 800 !important;
+}
+div.stButton > button:hover {
+    background-color: #3730a3 !important;
 }
 
+/* 8. Verstecke störende Streamlit-Texte (wie "Press Enter") */
 div[data-testid="stTextInput"] p {
     display: none !important;
 }
 
-div[data-testid="stTextInput"] label p {
-    display: block !important;
-    color: #334155 !important;
-}
-
+/* 9. Benachrichtigungen am unteren Rand */
 div[data-testid="stNotification"] {
-    background-color: #fee2e2 !important;
-    border: 1px solid #fecaca !important;
-    border-radius: 8px !important;
-    margin-top: 1rem !important;
+    background-color: #f1f5f9 !important;
+    border: 2px solid #cbd5e1 !important;
+    color: #000000 !important;
 }
-
 div[data-testid="stNotification"] p {
-    color: #991b1b !important;
+    color: #000000 !important;
+    font-weight: 800 !important;
 }
 
 footer, #MainMenu {visibility: hidden;}
