@@ -1,0 +1,14 @@
+# Spec: Rätsel-System
+- **Komponente:** `views/riddle.py`.
+- **Datenquelle:** `modules/data.py` (`STAMMES_DATA`).
+- **Rätseltypen:**
+    - `rebus`: Zeigt Symbole aus `icons`.
+    - `cipher`: Zeigt Text aus `cipher_display`.
+    - `grid`: Statische HTML-Tabelle mit Wörtern, Koordinaten aus `coords`.
+- **Zustände:**
+    - `st.session_state[solved_<id>]`: Speichert den Lösungsstatus eines Events (Boolean).
+- **Logik:**
+    - `text_input` für Lösung, normalisiert auf Kleinbuchstaben + Trim.
+    - Button "Das Siegel lösen" vergleicht Eingabe mit `loesung`.
+    - Bei Erfolg: Zeigt `ergebnis` in einer Gold-Box.
+- **Navigation:** Button "Zurück zum Zirkel" löscht `current_event` aus Session-State.
