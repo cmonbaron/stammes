@@ -24,7 +24,8 @@ authenticator = stauth.Authenticate(
 
 # --- Authenticator ausführen ---
 # Die login-Methode prüft automatisch das Cookie und setzt den session_state
-name, authentication_status, username = authenticator.login('Login', 'main')
+# Wir nutzen benannte Argumente, um Fehler in der Argument-Reihenfolge zu vermeiden
+authenticator.login(location='main')
 
 # --- Main Entry Point (Routing) ---
 
