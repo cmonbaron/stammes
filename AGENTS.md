@@ -1,16 +1,24 @@
 # 🤖 KI-Kontext: Heilige Bruderschaft
 
-Dieses Dokument ist der Einstiegspunkt für KI-Assistenten. Das Projekt folgt dem **Spec-Driven Development (SDD)** Ansatz.
+Dieses Dokument ist der Einstiegspunkt für KI-Assistenten. Das Projekt folgt dem **Spec-Driven Development (SDD)** Ansatz und einer modularen Streamlit-Architektur.
 
-## 📁 Projektstruktur & Specs
-Der gesamte Funktionsumfang, die Architektur und der aktuelle Fortschritt sind im Ordner `.specs/` dokumentiert:
+## 🛠️ Technologie-Stack
+- **Framework:** [Streamlit](https://streamlit.io/) (Python).
+- **Authentifizierung:** `streamlit-authenticator`.
+- **Styling:** Custom CSS (in `styles/`) via `st.markdown(unsafe_allow_html=True)`.
+- **Datenhaltung:** In-Memory via `st.session_state` (für die Session) und statische Daten in `modules/data.py`.
 
-- **`.specs/features/01_authentication/`**: Login-System, PINs und QR-Codes.
-- **`.specs/features/02_dashboard/`**: Event-Übersicht und Navigation.
-- **`.specs/features/03_riddles/`**: Rätsel-Logik und Belohnungssystem.
+## 📁 Projektstruktur & Konventionen
+Jeder KI-Assistent MUSS diese Struktur respektieren und neue Logik entsprechend einordnen:
 
-## ⚙️ Workflow (SDD)
-Für jede Änderung (Feature oder Bugfix) folgen wir diesem Prozess:
+- **`streamlit_app.py`**: Zentraler Entry Point, Routing und globale Injections (wie Audio/CSS).
+- **`modules/`**: Reine Logik, Datenverarbeitung und Hilfsfunktionen (z. B. `data.py`, `ui_helper.py`). Hier gehört kein UI-Code hin, der direkt `st.write` nutzt, es sei denn als dedizierte UI-Komponente.
+- **`views/`**: Die einzelnen "Seiten" oder Ansichten der App (z. B. `dashboard.py`, `riddle.py`). Diese werden von `streamlit_app.py` aufgerufen.
+- **`styles/`**: Alle CSS-Dateien. Diese werden über Hilfsfunktionen geladen und injiziert.
+- **`.specs/`**: Dokumentation des Fortschritts und der Anforderungen nach SDD.
+
+## ⚙️ Workflow (Spec-Driven Development)
+Für jede Änderung folgen wir diesem Prozess:
 1. **Requirements** definieren (`01_requirements.md`).
 2. **Spec** technisch präzisieren (`02_spec.md`).
 3. **Plan** für die Umsetzung erstellen (`03_plan.md`).
@@ -18,6 +26,6 @@ Für jede Änderung (Feature oder Bugfix) folgen wir diesem Prozess:
 
 ## 🔑 Wichtige Projekt-Anker
 - **Entry Point:** `streamlit_app.py`.
-- **Daten:** `modules/data.py` (Zentrale Liste `STAMMES_DATA`).
-- **Styling:** `styles/` (Bruderschaft-Design mit Gold-Akzenten).
-- **Session States:** `authentication_status`, `current_event`, `solved_<id>`.
+- **Zentrale Daten:** `modules/data.py` (Zentrale Liste `STAMMES_DATA`).
+- **Styling-Leitfaden:** Bruderschaft-Design (Schwarz/Gold/Dunkelrot).
+- **Session States:** `authentication_status`, `current_event`, `solved_<id>`, `audio_playing`.

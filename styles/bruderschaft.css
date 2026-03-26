@@ -30,6 +30,21 @@ p, div, span, label {
     padding: 1.5rem; 
     margin-bottom: 1.5rem; 
     text-align: center; 
+    transition: all 0.3s ease;
+}
+
+.event-card.solved {
+    border: 1px solid #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.solved-badge {
+    color: #d4af37;
+    font-size: 0.8rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 1px;
+    margin-top: 5px;
 }
 
 .stButton > button { 

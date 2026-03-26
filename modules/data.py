@@ -26,7 +26,12 @@ STAMMES_DATA = [
         "datum": "21. Juni 2026",
         "typ": "grid",
         "hinweis": "Finde das Wort in den Schatten.",
-        "coords": "(1,2), (2,2), (2,3), (1,2), (1,3), (3,3)",
+        "grid": [
+            ["A", "B", "O"],
+            ["S", "H", "N"],
+            ["T", "U", "F"]
+        ],
+        "coords": "(1,2), (1,1), (2,2), (2,3), (2,2), (1,3), (3,3)",
         "loesung": "bahnhof",
         "ergebnis": "📍 Alter Bahnhof (Gleis 1 Bar). Beginn: 21:00 Uhr."
     }

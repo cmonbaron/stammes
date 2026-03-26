@@ -21,7 +21,23 @@ def show_riddle():
         elif e['typ'] == 'cipher':
             st.markdown(f'<div class="cipher-text">{e["cipher_display"]}</div>', unsafe_allow_html=True)
         elif e['typ'] == 'grid':
-            st.markdown('<table class="grid-table"><tr><td></td><td>1</td><td>2</td><td>3</td></tr><tr><td>1</td><td>A</td><td>B</td><td>O</td></tr><tr><td>2</td><td>S</td><td>H</td><td>N</td></tr><tr><td>3</td><td>T</td><td>U</td><td>F</td></tr></table>', unsafe_allow_html=True)
+            # Dynamisches Gitter generieren
+            grid_data = e.get('grid', [])
+            if grid_data:
+                rows = len(grid_data)
+                cols = len(grid_data[0]) if rows > 0 else 0
+                
+                html = '<table class="grid-table">'
+                # Header
+                html += '<tr><td></td>' + ''.join([f'<td>{i+1}</td>' for i in range(cols)]) + '</tr>'
+                # Rows
+                for r in range(rows):
+                    html += f'<tr><td>{r+1}</td>'
+                    for c in range(cols):
+                        html += f'<td>{grid_data[r][c]}</td>'
+                    html += '</tr>'
+                html += '</table>'
+                st.markdown(html, unsafe_allow_html=True)
             st.markdown(f'<p style="margin-top: 15px; font-weight: bold; letter-spacing: 2px;">{e["coords"]}</p>', unsafe_allow_html=True)
         st.markdown('</div>', unsafe_allow_html=True)
 

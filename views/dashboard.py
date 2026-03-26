@@ -9,9 +9,21 @@ def show_dashboard(authenticator):
     st.markdown(f"<p style='text-align: center;'>Sei gegrüßt, Bruder {st.session_state['name']}.</p>", unsafe_allow_html=True)
     
     for e in STAMMES_DATA:
+        solved = st.session_state.get(f"solved_{e['id']}", False)
+        card_class = "event-card solved" if solved else "event-card"
+        badge = '<div class="solved-badge">⚜️ ENTSCHLÜSSELT</div>' if solved else ""
+        
         with st.container():
-            st.markdown(f'<div class="event-card"><h3>{e["titel"]}</h3><p>📅 {e["datum"]}</p></div>', unsafe_allow_html=True)
-            if st.button("Das Siegel brechen", key=f"e_{e['id']}"):
+            st.markdown(f'''
+                <div class="{card_class}">
+                    <h3>{e["titel"]}</h3>
+                    <p>📅 {e["datum"]}</p>
+                    {badge}
+                </div>
+            ''', unsafe_allow_html=True)
+            
+            button_label = "Die Offenbarung ansehen" if solved else "Das Siegel brechen"
+            if st.button(button_label, key=f"e_{e['id']}"):
                 st.session_state.current_event = e['id']
                 st.rerun()
     
