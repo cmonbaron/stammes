@@ -14,6 +14,7 @@ st.set_page_config(
 )
 
 # --- Authentifizierung Initialisierung ---
+# WICHTIG: Credentials und Cookie-Einstellungen müssen exakt mit secrets.toml übereinstimmen
 authenticator = stauth.Authenticate(
     st.secrets['credentials'].to_dict(),
     st.secrets['cookie']['name'],
@@ -21,42 +22,45 @@ authenticator = stauth.Authenticate(
     st.secrets['cookie']['expiry_days']
 )
 
+# --- Authenticator ausführen ---
+# Die login-Methode prüft automatisch das Cookie und setzt den session_state
+name, authentication_status, username = authenticator.login('Login', 'main')
+
 # --- Main Entry Point (Routing) ---
 
-# 1. Login-Status prüfen
-if not st.session_state.get('authentication_status'):
-    inject_login_style()
-    st.title("Heilige Bruderschaft")
-
-# 2. Authenticator ausführen
-authenticator.login(location='main')
-
-# 3. Seiten-Routing basierend auf Status
 if st.session_state["authentication_status"]:
-    # Globales Hintergrund-Audio laden
+    # 1. Globales Hintergrund-Audio laden
     inject_background_audio("data/song.mp3")
     
-    # Sidebar Navigation
+    # 2. Sidebar Navigation
     with st.sidebar:
         st.title("Navigation")
         if st.button("🏠 Zirkel (Dashboard)"):
             st.session_state.page = "dashboard"
-            if 'current_event' in st.session_state: del st.session_state.current_event
+            if 'current_event' in st.session_state: 
+                del st.session_state.current_event
             st.rerun()
         if st.button("📜 Offenbarungen (Galerie)"):
             st.session_state.page = "gallery"
-            if 'current_event' in st.session_state: del st.session_state.current_event
+            if 'current_event' in st.session_state: 
+                del st.session_state.current_event
             st.rerun()
         st.markdown("---")
 
-    # Routing
+    # 3. Routing
     if 'current_event' in st.session_state:
         show_riddle()
     elif st.session_state.get('page') == 'gallery':
         show_gallery()
     else:
         show_dashboard(authenticator)
+
 elif st.session_state["authentication_status"] is False:
+    inject_login_style()
+    st.title("Heilige Bruderschaft")
     st.error('Der Zugang wurde verwehrt. Codename oder Schlüssel ist falsch.')
+
 elif st.session_state["authentication_status"] is None:
+    inject_login_style()
+    st.title("Heilige Bruderschaft")
     st.info('Identifiziere dich, Bruder.')
